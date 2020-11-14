@@ -1,0 +1,95 @@
+
+.type--normal {
+  background-color: #A8A878;
+}
+
+.type--water {
+  background-color: #6890F0;
+}
+
+.type--electric {
+  background-color: #F8D030;
+}
+
+.type--fighting {
+  background-color: #C03028;
+}
+
+.type--ground {
+  background-color: #E0C068;
+}
+
+.type--psychic {
+  background-color: #F85888;
+}
+
+.type--rock {
+  background-color: #B8A038;
+}
+
+.type--dark {
+  background-color: #705848;
+}
+
+.type--steel {
+  background-color: #B8B8D0;
+}
+
+.type--fire {
+  background-color: #F08030;
+}
+
+.type--grass {
+  background-color: #78C850;
+}
+
+.type--ice {
+  background-color: #98D8D8;
+}
+
+.type--poison {
+  background-color: #A040A0;
+}
+
+.type--flying {
+  background-color: #A890F0;
+}
+
+.type--bug {
+  background-color: #A8B820;
+}
+
+.type--ghost {
+  background-color: #705898;
+}
+
+.type--dragon {
+  background-color: #7038F8;
+}
+
+.type--fairy {
+  background-color: #F0B6BC;
+}
+
+.type--loading {
+  background-color: #ddd;
+
+  animation-duration: 1.25s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: placeholder-loading;
+  animation-timing-function: linear;
+  background: darkgray;
+  background: linear-gradient(to right, #ddd 10%, #ccc 18%, #ddd 33%);
+  background-size: 800px 104px;
+  position: relative;
+}
+
+@keyframes placeholder-loading{
+  0%{
+    background-position: -468px 0
+  }
+  100%{
+    background-position: 468px 0
+  }
+}
