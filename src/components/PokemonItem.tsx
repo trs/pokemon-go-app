@@ -1,21 +1,22 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
 import useFetch from 'use-http';
 import styled from 'styled-components';
 
-import { PokemonType } from '../components/PokemonType';
+import { PokemonType } from './PokemonType';
 
 import {API_URL} from '../const';
 import { PokemonDetails } from '../types';
 
 const Container = styled.div`
+  background-color: white;
+  padding: 2rem 3rem;
+  border-radius: 2rem;
 `;
 
-export function PokemonItem() {
-  const { key } = useParams<{key: string}>();
+export function PokemonItem({id}: {id: string}) {
 
-  const url = new URL(`pokemon/${key}`, API_URL).href;
-  const { loading, error, data: pokemon } = useFetch<PokemonDetails>(url, {headers: {'Accept-Encoding': 'br'}}, [key]);
+  const url = new URL(`pokemon/${id}`, API_URL).href;
+  const { loading, error, data: pokemon } = useFetch<PokemonDetails>(url, {headers: {'Accept-Encoding': 'br'}}, [id]);
 
   return (
     <Container>
