@@ -4,10 +4,15 @@ export interface PokemonImage {
   height: number;
 }
 
+export interface PokemonForm {
+  id: string;
+  name: string;
+}
+
 export interface PokemonSummary {
   id: string;
   number: number;
-  form: string;
+  forms: PokemonForm[];
   name: string;
   image: PokemonImage;
   types: string[];
@@ -16,7 +21,7 @@ export interface PokemonSummary {
 export interface PokemonDetails {
   id: string;
   number: number;
-  form: string;
+  forms: PokemonForm[];
   name: string;
   image: PokemonImage;
   types: Type[];

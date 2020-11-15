@@ -1,30 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { CSSTransition } from 'react-transition-group';
 
 import {PokemonType} from './PokemonType';
+import {PokemonForm} from './PokemonForm';
 
 import { API_URL } from '../const';
 
 import { PokemonSummary } from '../types';
 
-const Container = styled.article`
+const Container = styled(Link)`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 0.25rem;
   background-color: #ffffff;
-  padding: 1rem 2rem;
   border-radius: 1rem;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  width: 200px;
-  height: 250px;
+  width: 250px;
+  height: 275px;
+  text-decoration: none;
+
+  border: 0.5rem solid transparent;
+  outline: none;
 `;
 
 const ImageContainer = styled.div`
   position: relative;
-  background-color: #F2F2F2;
+  background-color: #edf2f7;
   border-radius: 50%;
   display: flex;
   flex-direction: column;
@@ -42,8 +47,8 @@ const Image = styled.img`
 
 const Overlay = styled.div`
   position: absolute;
-  top: -1rem;
-  right: -2rem;
+  top: -0.5rem;
+  right: -1.75rem;
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -51,38 +56,13 @@ const Overlay = styled.div`
   align-items: flex-end;
 `;
 
-const PokemonNumber = styled.p`
-  color: #111111;
-  font-size: 0.75rem;
-  font-weight: bold;
-  background-color: white;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
-  border-radius: 0.5rem;
-  padding: 0.25rem;
-`;
-
-const PokemonForm = styled.p`
-  color: #111111;
-  font-size: 0.75rem;
-  background-color: white;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
-  border-radius: 0.5rem;
-  padding: 0.25rem;
-
-  /* &:before {
-    content: '('
-  }
-
-  &:after {
-    content: ')'
-  } */
-`;
-
 const PokemonName = styled.h2`
   font-size: 1.25rem;
+  padding: 0.25rem 0;
+  font-weight: 600;
   color: black;
+  text-transform: uppercase;
 `;
-
 
 const TypesContainer = styled.div`
   display: flex;
@@ -92,27 +72,52 @@ const TypesContainer = styled.div`
 
 export function PokemonSelector({pokemon}: {pokemon: PokemonSummary}) {
   const dexNum = `#${String(pokemon.number).padStart(3, '0')}`;
+
+  const nodeRef = React.useRef(null);
+
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    setLoaded(true);
+    return () => setLoaded(false);
+  }, []);
+
+  const duration = 400;
+
+  const defaultStyle = {
+    transition: `opacity ${duration}ms ease-in-out`,
+    opacity: 0,
+  }
+
+  const transitionStyle: Record<string, React.CSSProperties> = {
+    entering: { opacity: 0.75 },
+    entered:  { opacity: 1 },
+    exiting:  { opacity: 0.5 },
+    exited:  { opacity: 0 },
+  };
+
   return (
-    <Link to={pokemon.id} style={{textDecoration: 'none'}}>
-      <Container>
-        <ImageContainer>
-          <Overlay>
-            <PokemonNumber>{dexNum}</PokemonNumber>
-            {pokemon.form && <PokemonForm>{pokemon.form}</PokemonForm>}
-          </Overlay>
-          <Image
-            loading="lazy"
-            src={`${API_URL}/${pokemon.image.path}`}
-            alt=""
-            width={pokemon.image.width}
-            height={pokemon.image.height}
-          />
-        </ImageContainer>
-        <PokemonName>{pokemon.name}</PokemonName>
-        <TypesContainer>
-          {pokemon.types.map((type) => <PokemonType key={type} type={type} />)}
-        </TypesContainer>
-      </Container>
-    </Link>
+    <CSSTransition nodeRef={nodeRef} in={loaded} timeout={duration}>
+      {state =>
+        <Container to={pokemon.id} style={{...defaultStyle, ...transitionStyle[state]}}>
+          <ImageContainer>
+            <Overlay>
+              <PokemonForm form="">{dexNum}</PokemonForm>
+              {pokemon.forms.map((form) => <PokemonForm key={form.id} form={form.id}>{form.name}</PokemonForm> )}
+            </Overlay>
+            <Image
+              loading="lazy"
+              src={`${API_URL}/${pokemon.image.path}`}
+              alt=""
+              width={pokemon.image.width}
+              height={pokemon.image.height}
+            />
+          </ImageContainer>
+          <PokemonName>{pokemon.name}</PokemonName>
+          <TypesContainer>
+            {pokemon.types.map((type) => <PokemonType key={type} type={type}>{type}</PokemonType>)}
+          </TypesContainer>
+        </Container>
+      }
+    </CSSTransition>
   )
 }

@@ -1,3 +1,6 @@
+.type {
+  background-color: #edf2f7;
+}
 
 .type--normal {
   background-color: #A8A878;
@@ -71,6 +74,7 @@
   background-color: #F0B6BC;
 }
 
+/*
 .type--loading {
   background-color: #ddd;
 
@@ -92,4 +96,4 @@
   100%{
     background-position: 468px 0
   }
-}
+} */

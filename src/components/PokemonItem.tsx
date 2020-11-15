@@ -24,7 +24,7 @@ export function PokemonItem({id}: {id: string}) {
       {loading && 'Loading...'}
       {pokemon && <>
         <p>{pokemon.name}</p>
-        {pokemon.types.map(({name}) => <PokemonType key={name} type={name} />)}
+        {pokemon.types.map(({name}) => <PokemonType key={name} type={name}>{name}</PokemonType>)}
         <img
           src={`${API_URL}/${pokemon.image.path}`}
           alt=""
