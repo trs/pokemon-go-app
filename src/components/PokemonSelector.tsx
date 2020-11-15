@@ -102,7 +102,7 @@ export function PokemonSelector({pokemon}: {pokemon: PokemonSummary}) {
           <ImageContainer>
             <Overlay>
               <PokemonForm form="">{dexNum}</PokemonForm>
-              {pokemon.forms.map((form) => <PokemonForm key={form.id} form={form.id}>{form.name}</PokemonForm> )}
+              {pokemon.forms.map((form) => <PokemonForm key={form.id} form={form.code}>{form.name}</PokemonForm> )}
             </Overlay>
             <Image
               loading="lazy"

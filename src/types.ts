@@ -6,6 +6,7 @@ export interface PokemonImage {
 
 export interface PokemonForm {
   id: string;
+  code: string;
   name: string;
 }
 
