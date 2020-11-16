@@ -5,10 +5,9 @@ import { CSSTransition } from 'react-transition-group';
 
 import {PokemonType} from './PokemonType';
 import {PokemonForm} from './PokemonForm';
+import {PokemonImage} from './PokemonImage';
 
-import { API_URL } from '../const';
-
-import { PokemonSummary } from '../types';
+import { IPokedexEntry } from '../types';
 
 const Container = styled(Link)`
   display: flex;
@@ -19,8 +18,8 @@ const Container = styled(Link)`
   background-color: #ffffff;
   border-radius: 1rem;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  width: 250px;
-  height: 275px;
+  width: 300px;
+  height: 325px;
   text-decoration: none;
 
   border: 0.5rem solid transparent;
@@ -33,16 +32,16 @@ const ImageContainer = styled.div`
   border-radius: 50%;
   display: flex;
   flex-direction: column;
-  width: 175px;
-  height: 175px;
+  width: 200px;
+  height: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
-const Image = styled.img`
-  max-height: 200px;
-  max-width: 200px;
+const Image = styled(PokemonImage)`
+  max-height: 256px;
+  max-width: 256px;
 `;
 
 const Overlay = styled.div`
@@ -70,7 +69,7 @@ const TypesContainer = styled.div`
   gap: 0.25rem;
 `;
 
-export function PokemonSelector({pokemon}: {pokemon: PokemonSummary}) {
+export function PokemonSelector({pokemon}: {pokemon: IPokedexEntry}) {
   const dexNum = `#${String(pokemon.number).padStart(3, '0')}`;
 
   const nodeRef = React.useRef(null);
@@ -102,14 +101,13 @@ export function PokemonSelector({pokemon}: {pokemon: PokemonSummary}) {
           <ImageContainer>
             <Overlay>
               <PokemonForm form="">{dexNum}</PokemonForm>
-              {pokemon.forms.map((form) => <PokemonForm key={form.id} form={form.code}>{form.name}</PokemonForm> )}
+              { pokemon.form && <PokemonForm form={pokemon.form.code}>{pokemon.form.name}</PokemonForm> }
             </Overlay>
             <Image
-              loading="lazy"
-              src={`${API_URL}/${pokemon.image.path}`}
-              alt=""
-              width={pokemon.image.width}
-              height={pokemon.image.height}
+              images={pokemon.images}
+              category="model"
+              type="png"
+              variant="normal"
             />
           </ImageContainer>
           <PokemonName>{pokemon.name}</PokemonName>

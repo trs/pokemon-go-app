@@ -9,7 +9,7 @@ import { PokemonSelector } from './components/PokemonSelector';
 import { PokemonItem } from './components/PokemonItem';
 import { Loading } from './components/Loading';
 
-import { PokemonSummary } from './types';
+import { IPokedexEntry } from './types';
 import { API_URL } from './const';
 
 import LogoImage from './images/pgo_logo.png';
@@ -67,11 +67,12 @@ const LoadingContainer = styled.div`
   justify-self: center;
 `;
 
-function filterPokemonList(list: PokemonSummary[], searchTerm: string) {
+function filterPokemonList(list: IPokedexEntry[], searchTerm: string) {
   if (!searchTerm) return list;
   return list.filter((pokemon) => {
     if (pokemon.name.toLocaleLowerCase().includes(searchTerm)) return true;
-    if (pokemon.forms.some((form) => form.name.toLocaleLowerCase().includes(searchTerm))) return true;
+    if (String(pokemon.number).includes(searchTerm)) return true;
+    if (pokemon.form && pokemon.form.name.toLocaleLowerCase().includes(searchTerm)) return true;
     if (pokemon.types.some((type) => type.toLocaleLowerCase().includes(searchTerm))) return true;
     return false;
   })
@@ -86,8 +87,8 @@ export default function App() {
 
   useEffect(() => forceCheck(), [searchTerm]);
 
-  const { loading, error, data = [] } = useFetch<PokemonSummary[]>(
-    new URL(`pokemon?page=0&count=10000`, API_URL).href,
+  const { loading, error, data = [] } = useFetch<IPokedexEntry[]>(
+    new URL(`api/pokemon?page=0&count=10000`, API_URL).href,
     {
       headers: {'Accept-Encoding': 'br'},
       onNewData: (curr: any[], next: any[]) => [...curr, ...next],

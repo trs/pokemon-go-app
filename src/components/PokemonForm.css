@@ -2,7 +2,7 @@
   background-color: #4a5568;
 }
 
-.form--mega {
+.form--mega, .form--mega-x, .form--mega-y {
   background: linear-gradient(90deg, rgba(231,119,174,1) 0%, rgba(231,119,174,1) 12.5%, rgba(75,145,201,1) 37.5%, rgba(29,169,71,1) 62.5%, rgba(233,235,68,1) 87.5%, rgba(233,235,68,1) 100%);
 }
 

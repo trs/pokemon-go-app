@@ -5,7 +5,8 @@ import styled from 'styled-components';
 import { PokemonType } from './PokemonType';
 
 import {API_URL} from '../const';
-import { PokemonDetails } from '../types';
+import { Pokemon } from '../types';
+import { PokemonImage } from './PokemonImage';
 
 const Container = styled.div`
   background-color: white;
@@ -15,8 +16,8 @@ const Container = styled.div`
 
 export function PokemonItem({id}: {id: string}) {
 
-  const url = new URL(`pokemon/${id}`, API_URL).href;
-  const { loading, error, data: pokemon } = useFetch<PokemonDetails>(url, {headers: {'Accept-Encoding': 'br'}}, [id]);
+  const url = new URL(`api/pokemon/${id}`, API_URL).href;
+  const { loading, error, data: pokemon } = useFetch<Pokemon>(url, {headers: {'Accept-Encoding': 'br'}}, [id]);
 
   return (
     <Container>
@@ -25,11 +26,11 @@ export function PokemonItem({id}: {id: string}) {
       {pokemon && <>
         <p>{pokemon.name}</p>
         {pokemon.types.map(({name}) => <PokemonType key={name} type={name}>{name}</PokemonType>)}
-        <img
-          src={`${API_URL}/${pokemon.image.path}`}
-          alt=""
-          width={pokemon.image.width}
-          height={pokemon.image.height}
+        <PokemonImage
+          images={pokemon.images}
+          category='model'
+          type='gif'
+          variant='normal'
         />
       </>}
     </Container>

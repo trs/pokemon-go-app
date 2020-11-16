@@ -1,1 +1,1 @@
-export const API_URL = 'https://pokemon-go-data.vercel.app/api/';
+export const API_URL = 'https://pokemon-go-data.vercel.app/';
