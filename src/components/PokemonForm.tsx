@@ -10,6 +10,8 @@ const Form = styled(TypeStyle)`
 `;
 
 export function PokemonForm({form, children}: PropsWithChildren<{form: string}>) {
+  if (form === 'normal') return <></>;
+
   return (
     <Form className={`form form--${form.toLocaleLowerCase()}`}>{children}</Form>
   )

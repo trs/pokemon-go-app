@@ -25,12 +25,9 @@ export function PokemonItem({id}: {id: string}) {
       {loading && 'Loading...'}
       {pokemon && <>
         <p>{pokemon.name}</p>
-        {pokemon.types.map(({name}) => <PokemonType key={name} type={name}>{name}</PokemonType>)}
+        {pokemon.types.map((type) => <PokemonType key={type} type={type}>{type}</PokemonType>)}
         <PokemonImage
-          images={pokemon.images}
-          category='model'
-          type='gif'
-          variant='normal'
+          src={pokemon.images.normalAnimated}
         />
       </>}
     </Container>

@@ -5,31 +5,19 @@ import { API_URL } from '../const';
 import { IPokemonImage } from '../types';
 
 interface Props {
-  images: IPokemonImage[];
-  variant: 'shiny' | 'normal';
-  type: 'png' | 'gif';
-  category: 'model';
+  src: IPokemonImage | null;
 }
 
-export function PokemonImage({images, variant, type, category}: Props) {
-  if (!images) return <img loading="lazy" />;
-
-  const image = images.find((img) =>
-    img
-    && img.type === type
-    && img.variant === variant
-    && img.category === category
-  );
-
-  if (!image) return <img loading="lazy" />;
+export function PokemonImage({src}: Props) {
+  if (!src) return <img loading="lazy" />;
 
   return (
     <img
       loading="lazy"
-      src={`${API_URL}/${image.path}`}
+      src={`${API_URL}/${src.url}`}
       alt=""
-      width={image.width}
-      height={image.height}
+      width={src.width}
+      height={src.height}
     />
   )
 }

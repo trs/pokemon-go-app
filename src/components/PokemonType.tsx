@@ -21,7 +21,7 @@ export const TypeStyle = styled.div`
 
 export function PokemonType({type, children}: PropsWithChildren<{type: string}>) {
   return (
-    <TypeStyle className={`type type--${type.toLocaleLowerCase()}`}>
+    <TypeStyle className={`type type--${String(type).toLocaleLowerCase()}`}>
       <code>{children}</code>
     </TypeStyle>
   )

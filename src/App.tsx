@@ -72,7 +72,7 @@ function filterPokemonList(list: IPokedexEntry[], searchTerm: string) {
   return list.filter((pokemon) => {
     if (pokemon.name.toLocaleLowerCase().includes(searchTerm)) return true;
     if (String(pokemon.number).includes(searchTerm)) return true;
-    if (pokemon.form && pokemon.form.name.toLocaleLowerCase().includes(searchTerm)) return true;
+    if (pokemon.forms && pokemon.forms.some(({name}) => name.toLocaleLowerCase().includes(searchTerm))) return true;
     if (pokemon.types.some((type) => type.toLocaleLowerCase().includes(searchTerm))) return true;
     return false;
   })

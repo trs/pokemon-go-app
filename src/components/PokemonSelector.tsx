@@ -70,7 +70,7 @@ const TypesContainer = styled.div`
 `;
 
 export function PokemonSelector({pokemon}: {pokemon: IPokedexEntry}) {
-  const dexNum = `#${String(pokemon.number).padStart(3, '0')}`;
+  const pokedexNumber = `#${String(pokemon.number).padStart(3, '0')}`;
 
   const nodeRef = React.useRef(null);
 
@@ -100,15 +100,10 @@ export function PokemonSelector({pokemon}: {pokemon: IPokedexEntry}) {
         <Container to={pokemon.id} style={{...defaultStyle, ...transitionStyle[state]}}>
           <ImageContainer>
             <Overlay>
-              <PokemonForm form="">{dexNum}</PokemonForm>
-              { pokemon.form && <PokemonForm form={pokemon.form.code}>{pokemon.form.name}</PokemonForm> }
+              <PokemonForm form="">{pokedexNumber}</PokemonForm>
+              { pokemon.forms && pokemon.forms.map((form) => <PokemonForm form={form.code}>{form.name}</PokemonForm>) }
             </Overlay>
-            <Image
-              images={pokemon.images}
-              category="model"
-              type="png"
-              variant="normal"
-            />
+            <Image src={pokemon.images.normal} />
           </ImageContainer>
           <PokemonName>{pokemon.name}</PokemonName>
           <TypesContainer>
