@@ -9,18 +9,18 @@ export interface IPokedexEntry {
   name: string;
   forms: IPokemonForm[];
   types: string[];
-  images: {
-    normal: IPokemonImage | null;
-    shiny: IPokemonImage | null;
-    normalAnimated: IPokemonImage | null;
-    shinyAnimated: IPokemonImage | null;
-  }
+  images: IPokemonImages;
 }
 
+export interface IPokemonImages {
+  normal: IPokemonImage | null;
+  shiny: IPokemonImage | null;
+  normalAnimated: IPokemonImage | null;
+  shinyAnimated: IPokemonImage | null;
+}
 
 export interface Pokemon extends Omit<IPokedexEntry, 'types'> {
   stats: IPokemonStats;
-  // types: IPokemonType[];
   types: string[];
 }
 
@@ -30,14 +30,14 @@ export interface IPokemonStats {
   defence: number;
 }
 
-export interface IPokemonType {
+export interface IPokemonDefendTypeEffectiveness {
   name: string;
-  effectiveness?: Record<string, IPokemonTypeEffectiveness>;
+  defendEffectiveness: IPokemonTypeEffectiveness[]
 }
 
 export interface IPokemonTypeEffectiveness {
-  multiplier: number;
-  description: string;
+  types: string[];
+  value: number;
 }
 
 export interface IPokemonImage {

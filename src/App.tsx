@@ -17,10 +17,10 @@ import './App.css';
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
   justify-content: center;
-  align-items: stretch;
-  gap: 1rem;
+  align-items: center;
+  row-gap: 1rem;
 `;
 
 const SearchContainer = styled.div`
@@ -42,16 +42,17 @@ const SearchBar = styled.input`
   border: none;
   border-radius: 0.5rem;
   padding: 0.5rem 1rem;
+  width: clamp(250px, 60%, 600px);
 `;
 
 const SelectorContainer = styled.main`
-  grid-column: 2 / span 1;
   display: grid;
   grid-template-columns: [start] 1fr [end] ;
   gap: 1rem;
-  justify-content: center;
-  justify-items: center;
   max-width: 960px;
+  justify-self: center;
+  justify-items: center;
+  align-items: flex-start;
 
   @media (min-width: 640px) {
     grid-template-columns: [start] repeat(2, 1fr) [end] ;
@@ -110,7 +111,12 @@ export default function App() {
       <Container>
         <SearchContainer>
           <img src={LogoImage} alt="Pokemon Go" height="140px" />
-          <SearchBar placeholder="Search" type="text" size={30} onChange={(e) => setSearchTerm(e.target.value.toLocaleLowerCase())} />
+          <SearchBar
+            placeholder="Search"
+            type="text"
+            onChange={(e) => setSearchTerm(e.target.value.toLocaleLowerCase())}
+            value={rawSearchTerm}
+          />
         </SearchContainer>
 
         <SelectorContainer>

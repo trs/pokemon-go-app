@@ -2,17 +2,35 @@ import React from 'react';
 import useFetch from 'use-http';
 import styled from 'styled-components';
 
-import { PokemonType } from './PokemonType';
+import {PokemonEntry} from './PokemonEntry';
+import {PokemonEffectiveness} from './PokemonEffectiveness';
 
 import {API_URL} from '../const';
 import { Pokemon } from '../types';
-import { PokemonImage } from './PokemonImage';
 
 const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  /* justify-content: center; */
+  height: 100vh;
+  width: 100vw;
   background-color: white;
-  padding: 2rem 3rem;
-  border-radius: 2rem;
 `;
+
+const PokemonEntryContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* padding: 1rem 1.5rem; */
+
+  /* width: 250px;
+  height: 275px; */
+`;
+
+const StyledPokemonEntry = styled(PokemonEntry)`
+padding: 2rem 2rem;
+`
 
 export function PokemonItem({id}: {id: string}) {
 
@@ -23,13 +41,15 @@ export function PokemonItem({id}: {id: string}) {
     <Container>
       {error && 'Error!'}
       {loading && 'Loading...'}
-      {pokemon && <>
-        <p>{pokemon.name}</p>
-        {pokemon.types.map((type) => <PokemonType key={type} type={type}>{type}</PokemonType>)}
-        <PokemonImage
-          src={pokemon.images.normalAnimated}
-        />
-      </>}
+      {pokemon &&
+        <>
+          <PokemonEntryContainer>
+            <StyledPokemonEntry pokemon={pokemon} image="normalAnimated" />
+          </PokemonEntryContainer>
+
+          <PokemonEffectiveness types={pokemon.types} />
+        </>
+      }
     </Container>
   )
 }
