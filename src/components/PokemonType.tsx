@@ -8,20 +8,20 @@ export const TypeStyle = styled.div`
   justify-content: center;
   align-items: center;
   color: #F8F8F8;
-  text-shadow: .05em .05em .1em black;
+  text-shadow: .075em .075em .1em black;
   text-transform: uppercase;
   font-weight: bold;
-  font-size: 0.85rem;
-  border: .1em solid #fff;
-  box-shadow: 0 0 0 .1em rgba(0, 0, 0, 0.5);
-  border-radius: .5em;
+  border: .15rem solid #fff;
+  box-shadow: 0 0 0 .15rem rgba(0, 0, 0, 0.5);
+  border-radius: 0.5rem;
   text-align: center;
   padding: 0.25em 0.75em;
+  font-size: 0.95rem;
 `;
 
-export function PokemonType({type, children}: PropsWithChildren<{type: string}>) {
+export function PokemonType({type, grade = 1, className = '', children}: PropsWithChildren<{type: string, grade?: number, className?: string}>) {
   return (
-    <TypeStyle className={`type type--${String(type).toLocaleLowerCase()}`}>
+    <TypeStyle className={`type type--${String(type).toLocaleLowerCase()} type-grade-${grade} ${className}`}>
       <code>{children}</code>
     </TypeStyle>
   )

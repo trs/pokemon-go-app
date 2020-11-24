@@ -14,7 +14,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   font-size: 10px;
-  background: rgb(222,222,222) url('./images/container_bg.png') top left repeat;
+  background: rgb(244,244,244) url('./images/bg.png') top left repeat;
 }
 
 code {

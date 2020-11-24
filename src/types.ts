@@ -38,6 +38,7 @@ export interface IPokemonDefendTypeEffectiveness {
 export interface IPokemonTypeEffectiveness {
   types: string[];
   value: number;
+  grade: number;
 }
 
 export interface IPokemonImage {
